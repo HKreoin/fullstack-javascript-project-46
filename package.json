@@ -13,11 +13,14 @@
   "license": "ISC",
   "author": "hkreoin",
   "type": "commonjs",
-  "main": "gendiff.js",
+  "main": "src/index.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "commander": "^13.1.0"
   }
 }
