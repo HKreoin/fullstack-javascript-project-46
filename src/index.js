@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import parse from './parsers.js';
 
 const getFileContent = (filepath) => {
   const absolutePath = path.resolve(filepath);
   const content = fs.readFileSync(absolutePath, 'utf8');
-  return JSON.parse(content);
+  const ext = path.extname(filepath);
+  return parse(content, ext);
 };
 
 const genDiff = (filepath1, filepath2) => {
