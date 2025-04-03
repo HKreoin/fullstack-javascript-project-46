@@ -41,7 +41,7 @@ const formatDiff = (diff, depth = 1) => {
     }
   });
 
-  return lines.join('\n');
+  return depth === 1 ? `{\n${lines.join('\n')}\n}` : lines.join('\n');
 };
 
 export default formatDiff;
