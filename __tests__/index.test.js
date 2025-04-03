@@ -1,7 +1,9 @@
 import path from 'path';
+import fs from 'fs';
 import genDiff from '../src/index';
 
 const getFixturePath = (filename) => path.join('__fixtures__', filename);
+const readFile = (filepath) => fs.readFileSync(filepath, 'utf-8');
 
 describe('gendiff', () => {
   test('should compare json files', () => {
