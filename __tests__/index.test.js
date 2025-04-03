@@ -1,68 +1,20 @@
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import fs from 'fs';
-import genDiff from '../src/index.js';
+import path from 'path';
+import genDiff from '../src/index';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const getFixturePath = (filename) => path.join('__fixtures__', filename);
 
-const getFixturePath = (filename) => join(__dirname, '..', '__fixtures__', filename);
-
-describe('genDiff', () => {
-  const expectedNested = `{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}`;
-
-  test('should compare nested json files', () => {
-    const file1 = getFixturePath('file1.json');
-    const file2 = getFixturePath('file2.json');
-    expect(genDiff(file1, file2)).toBe(expectedNested);
+describe('gendiff', () => {
+  test('should compare json files', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+    const expected = readFile(getFixturePath('stylish-nested.txt'));
+    expect(genDiff(filepath1, filepath2)).toBe(expected);
   });
 
-  test('should compare nested yaml files', () => {
-    const file1 = getFixturePath('file1.yml');
-    const file2 = getFixturePath('file2.yml');
-    expect(genDiff(file1, file2)).toBe(expectedNested);
+  test('should compare yaml files', () => {
+    const filepath1 = getFixturePath('file1.yml');
+    const filepath2 = getFixturePath('file2.yml');
+    const expected = readFile(getFixturePath('stylish-nested.txt'));
+    expect(genDiff(filepath1, filepath2)).toBe(expected);
   });
 });
