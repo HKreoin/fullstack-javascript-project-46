@@ -1,25 +1,25 @@
+const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+
 const getIndent = (depth) => ' '.repeat(depth * 4);
 
 const stringify = (value, depth) => {
-  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+  if (!isObject(value)) {
     return String(value);
   }
 
   const indent = getIndent(depth);
-  const bracketIndent = getIndent(depth - 1);
   const lines = Object.entries(value)
     .map(([key, val]) => `${indent}${key}: ${stringify(val, depth + 1)}`);
 
   return [
     '{',
     ...lines,
-    `${bracketIndent}}`,
+    `${getIndent(depth - 1)}}`,
   ].join('\n');
 };
 
 const formatDiff = (diff, depth = 1) => {
   const indent = getIndent(depth);
-  const bracketIndent = getIndent(depth - 1);
 
   const lines = diff.map((node) => {
     switch (node.type) {
@@ -44,6 +44,4 @@ const formatDiff = (diff, depth = 1) => {
   return lines.join('\n');
 };
 
-const stylish = (diff) => `{\n${formatDiff(diff)}\n}`;
-
-export default stylish; 
+export default formatDiff;

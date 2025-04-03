@@ -1,9 +1,11 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
+import stylish from './stylish';
+import plain from './plain';
+import json from './json';
 
 const formatters = {
   stylish,
   plain,
+  json,
 };
 
 export default (format) => {
@@ -12,4 +14,4 @@ export default (format) => {
     throw new Error(`Unknown format: ${format}`);
   }
   return formatter;
-}; 
+};

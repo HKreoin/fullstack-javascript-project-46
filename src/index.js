@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import parse from './parsers.js';
-import getFormatter from './formatters/index.js';
+import parse from './parsers';
+import getFormatter from './formatters';
 
 const getFileContent = (filepath) => {
   const absolutePath = path.resolve(filepath);
@@ -42,10 +42,10 @@ const buildDiff = (obj1, obj2) => {
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const obj1 = getFileContent(filepath1);
   const obj2 = getFileContent(filepath2);
-  
+
   const diff = buildDiff(obj1, obj2);
   const formatter = getFormatter(format);
   return formatter(diff);
 };
 
-export default genDiff; 
+export default genDiff;

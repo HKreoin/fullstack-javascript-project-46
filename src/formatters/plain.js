@@ -31,4 +31,4 @@ const formatDiff = (diff, parentKey = '') => {
   return lines.filter(Boolean).join('\n');
 };
 
-export default formatDiff; 
+export default formatDiff;

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import genDiff from '../src/index.js';
+import genDiff from '../src/index';
 
 const getFixturePath = (filename) => path.join('__fixtures__', filename);
 const readFile = (filepath) => fs.readFileSync(filepath, 'utf-8');
@@ -19,4 +19,4 @@ describe('plain format', () => {
     const expected = readFile(getFixturePath('plain-nested.txt'));
     expect(genDiff(filepath1, filepath2, 'plain')).toBe(expected);
   });
-}); 
+});
